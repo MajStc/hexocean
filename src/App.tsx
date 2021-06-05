@@ -1,10 +1,10 @@
-import React from 'react';
-
+import React from "react";
+import PizzaForm from "./containers/PizzaForm";
 
 function App() {
   return (
-    <div className="App">
-      hello
+    <div>
+      <PizzaForm />
     </div>
   );
 }
