@@ -1,6 +1,6 @@
 import React from "react";
 import { Field, reduxForm, InjectedFormProps } from "redux-form";
-import { PizzaFormData } from "../utils/pizzaFormTypes";
+import { PizzaFormData } from "../../utils/pizzaFormTypes";
 
 const PizzaForm: React.FC<InjectedFormProps<PizzaFormData>> = React.memo(
   (props) => {
