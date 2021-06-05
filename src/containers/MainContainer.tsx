@@ -5,10 +5,12 @@ import PizzaForm from "./forms/PizzaForm";
 import axios from "axios";
 import { PizzaFormData } from "../utils/pizzaFormTypes";
 import { url } from "../secret/api";
+import SoupForm from "./forms/SoupForm";
+import SandwichForm from "./forms/SandwichForm";
 
 const MainContainer = () => {
   const [foodType, setFoodType] = useState("pizza");
-  const handleSubmit = (data: PizzaFormData) => {
+  const handleSubmit = (data: any) => {
     axios
       .post(url, { ...data, type: foodType })
       .then((res) => console.log(res.data))
@@ -26,7 +28,13 @@ const MainContainer = () => {
         <div onClick={changeFoodType}>Sandwich</div>
         <div onClick={changeFoodType}>Soup</div>
       </div>
-      <PizzaForm onSubmit={handleSubmit} />
+      {
+        {
+          pizza: <PizzaForm onSubmit={handleSubmit} />,
+          soup: <SoupForm onSubmit={handleSubmit} />,
+          sandwich: <SandwichForm onSubmit={handleSubmit} />,
+        }[foodType]
+      }
     </div>
   );
 };
