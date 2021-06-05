@@ -1,95 +1,65 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { url } from "../secret/api";
+import React from "react";
+import { Field, reduxForm, InjectedFormProps } from "redux-form";
+import { PizzaFormData } from "../utils/pizzaFormTypes";
 
-const PizzaForm = () => {
-  const [name, setName] = useState("");
-  const [preparation_time, setPreparationTime] = useState("");
-  const [no_of_slices, setNoOfSlices] = useState(0);
-  const [diameter, setDiameter] = useState(0);
+const PizzaForm: React.FC<InjectedFormProps<PizzaFormData>> = React.memo(
+  (props) => {
+    const { pristine, submitting, reset, handleSubmit } = props;
 
-  const handleNameChange = (e: any) => {
-    setName(e.target.value);
-  };
-
-  const handlePreparationTimeChange = (e: any) => {
-    setPreparationTime(e.target.value);
-  };
-
-  const handleNoOfSlicesChange = (e: any) => {
-    setNoOfSlices(e.target.value);
-  };
-
-  const handleDiamatereChange = (e: any) => {
-    setDiameter(e.target.value);
-  };
-
-  const handleSubmit = (e: any) => {
-    console.log(
-      name,
-      preparation_time,
-
-      no_of_slices,
-      diameter
+    return (
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Name</label>
+          <div>
+            <Field
+              name="name"
+              component="input"
+              type="text"
+              placeholder="Name"
+            />
+          </div>
+        </div>
+        <div>
+          <label>Preparation Time</label>
+          <div>
+            <Field
+              name="preparation_time"
+              component="input"
+              type="text"
+              placeholder="preparation_time"
+            />
+          </div>
+        </div>
+        <div>
+          <label>Number of Slices</label>
+          <div>
+            <Field
+              name="no_of_slices"
+              component="input"
+              type="number"
+              placeholder="no_of_slices"
+              parse={(value: any) => +value}
+            />
+          </div>
+        </div>
+        <div>
+          <label>Diameter</label>
+          <div>
+            <Field
+              name="diameter"
+              component="input"
+              type="number"
+              placeholder="diameter"
+              parse={(value: any) => +value}
+            />
+          </div>
+        </div>
+        <button type="submit">Submit</button>
+      </form>
     );
-    e.preventDefault();
-    console.log("blabla");
-    axios
-      .post(url, {
-        name,
-        preparation_time,
-        type: "pizza",
-        no_of_slices,
-        diameter,
-      })
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err.response.data));
-  };
+  }
+);
 
-  return (
-    <>
-      <label>
-        Name:
-        <input
-          type="text"
-          value={name}
-          onChange={handleNameChange}
-          placeholder="name"
-        />
-      </label>
-      <label>
-        Preparation Time:
-        <input
-          type="text"
-          value={preparation_time}
-          onChange={handlePreparationTimeChange}
-          placeholder="preparation time"
-        />
-      </label>
-      <label>
-        Number of Slices:
-        <input
-          type="number"
-          value={no_of_slices}
-          onChange={handleNoOfSlicesChange}
-          placeholder="name"
-        />
-      </label>
-      <label>
-        Diamaeter:
-        <input
-          type="number"
-          value={diameter}
-          onChange={handleDiamatereChange}
-          placeholder="name"
-        />
-      </label>
-      <label>
-        Submit:
-        <input type="submit" onClick={handleSubmit} />
-      </label>
-    </>
-  );
-};
-
-export default PizzaForm;
+export default reduxForm<PizzaFormData>({
+  form: "pizza-form",
+})(PizzaForm);
