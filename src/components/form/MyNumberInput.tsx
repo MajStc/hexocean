@@ -1,7 +1,7 @@
 import React from "react";
 import { Field } from "redux-form";
-import { BaseInputProps } from "../../utils/formTypes/inputTypes/baseInput";
 import styles from "../../utils/styles/input.module.scss";
+import { BaseInputProps } from "../../utils/formTypes/inputTypes/baseInput";
 
 const MyNumberInput = ({ name, placeholder, label }: BaseInputProps) => {
   return (

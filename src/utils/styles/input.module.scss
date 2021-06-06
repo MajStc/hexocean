@@ -1,11 +1,11 @@
 .inputText{
     padding: 0.5em;
+    transition: 0.2s;
+    margin-top: 0.5em;
+    border-radius: 3px;
+    margin-bottom: 0.5em;
     border: 1.5px solid #ebb134;
     background-color: whitesmoke;
-    border-radius: 3px;
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
-    transition: 0.2s;
     &:focus{
         outline: none;
         background-color: white;

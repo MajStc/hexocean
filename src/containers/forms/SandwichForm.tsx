@@ -1,11 +1,11 @@
 import React from "react";
-import { Field, reduxForm, InjectedFormProps } from "redux-form";
-import MyNumberInput from "../../components/form/MyNumberInput";
+import { reduxForm, InjectedFormProps } from "redux-form";
 import styles from "../../utils/styles/submit.module.scss";
 import MyTextInput from "../../components/form/MyTextInput";
+import MyNumberInput from "../../components/form/MyNumberInput";
 
 const SandwichForm: React.FC<InjectedFormProps> = React.memo((props) => {
-  const { pristine, submitting, reset, handleSubmit } = props;
+  const { handleSubmit } = props;
 
   return (
     <form onSubmit={handleSubmit}>

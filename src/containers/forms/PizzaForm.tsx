@@ -1,8 +1,8 @@
 import React from "react";
 import { reduxForm, InjectedFormProps } from "redux-form";
-import MyNumberInput from "../../components/form/MyNumberInput";
 import styles from "../../utils/styles/submit.module.scss";
 import MyTextInput from "../../components/form/MyTextInput";
+import MyNumberInput from "../../components/form/MyNumberInput";
 
 const PizzaForm: React.FC<InjectedFormProps> = React.memo((props) => {
   const { handleSubmit } = props;

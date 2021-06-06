@@ -1,8 +1,9 @@
 import React from "react";
-import { Field, reduxForm, InjectedFormProps } from "redux-form";
+import { reduxForm, InjectedFormProps } from "redux-form";
 import MyRangeInput from "../../components/form/MyRangeInput";
 import MyTextInput from "../../components/form/MyTextInput";
 import styles from "../../utils/styles/submit.module.scss";
+
 const SoupForm: React.FC<InjectedFormProps> = React.memo((props) => {
   const { handleSubmit } = props;
 

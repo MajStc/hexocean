@@ -1,8 +1,8 @@
 import React from "react";
 
 interface Props {
-  className: string;
   content: string;
+  className: string;
   clickHandler: (e: any) => void;
 }
 
