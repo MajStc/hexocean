@@ -1,44 +1,31 @@
 import React from "react";
 import { Field, reduxForm, InjectedFormProps } from "redux-form";
-import { PizzaFormData } from "../../utils/pizzaFormTypes";
-
+import MyRangeInput from "../../components/form/MyRangeInput";
+import MyTextInput from "../../components/form/MyTextInput";
+import styles from "../../utils/styles/submit.module.scss";
 const SoupForm: React.FC<InjectedFormProps> = React.memo((props) => {
-  const { pristine, submitting, reset, handleSubmit } = props;
+  const { handleSubmit } = props;
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <label>Name</label>
-        <div>
-          <Field name="name" component="input" type="text" placeholder="Name" />
-        </div>
-      </div>
-      <div>
-        <label>Preparation Time</label>
-        <div>
-          <Field
-            name="preparation_time"
-            component="input"
-            type="text"
-            placeholder="preparation_time"
-          />
-        </div>
-      </div>
-      <div>
-        <label>Spiciness Scale</label>
-        <div>
-          <Field
-            name="spiciness_scale"
-            component="input"
-            type="range"
-            min="0"
-            max="10"
-            placeholder="spiciness_scale"
-            parse={(values: any) => +values}
-          />
-        </div>
-      </div>
-      <button type="submit">Submit</button>
+      <MyTextInput name="name" placeholder="Name" label="Name" />
+      <MyTextInput
+        name="preparation_time"
+        placeholder="Preparation Time"
+        label="Preparation Time"
+        pattern="[\d\d:\d\d:\d\d]{8}"
+        oninvalid="HH:MM:SS"
+      />
+      <MyRangeInput
+        name="spiciness_scale"
+        placeholder="Spiciness Scale"
+        label="Spiciness Scale"
+        from={0}
+        to={10}
+      />
+      <button type="submit" className={styles.myButton}>
+        Submit
+      </button>
     </form>
   );
 });

@@ -1,40 +1,53 @@
 import React, { useState } from "react";
-
-import styles from "./mainContainer.module.scss";
-import PizzaForm from "./forms/PizzaForm";
-import axios from "axios";
-import { PizzaFormData } from "../utils/pizzaFormTypes";
+import API from "../api/agent";
 import { url } from "../secret/api";
 import SoupForm from "./forms/SoupForm";
+import PizzaForm from "./forms/PizzaForm";
+import FoodType from "../components/FoodType";
 import SandwichForm from "./forms/SandwichForm";
+import styles from "./mainContainer.module.scss";
 
 const MainContainer = () => {
   const [foodType, setFoodType] = useState("pizza");
   const handleSubmit = (data: any) => {
-    axios
-      .post(url, { ...data, type: foodType })
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err.response.data));
+    if (foodType === "soup" && !data.spiciness_scale) data.spiciness_scale = 5;
+    API.post(url, { ...data, type: foodType })
+      .then((res) => res)
+      .catch((err) => err);
   };
 
   const changeFoodType = (e: any) => {
-    setFoodType(e.target.innerHTML.toLowerCase());
+    setFoodType(e.target.innerText.toLowerCase());
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.mainContainer}>
       <div className={styles.foodTypeContainer}>
-        <div onClick={changeFoodType}>Pizza</div>
-        <div onClick={changeFoodType}>Sandwich</div>
-        <div onClick={changeFoodType}>Soup</div>
+        <FoodType
+          className={foodType === "pizza" ? styles.selected : ""}
+          content="Pizza"
+          clickHandler={changeFoodType}
+        />
+        <FoodType
+          className={foodType === "soup" ? styles.selected : ""}
+          content="Soup"
+          clickHandler={changeFoodType}
+        />
+        <FoodType
+          className={foodType === "sandwich" ? styles.selected : ""}
+          content="Sandwich"
+          clickHandler={changeFoodType}
+        />
       </div>
-      {
+      <div className={styles.container}>
         {
-          pizza: <PizzaForm onSubmit={handleSubmit} />,
-          soup: <SoupForm onSubmit={handleSubmit} />,
-          sandwich: <SandwichForm onSubmit={handleSubmit} />,
-        }[foodType]
-      }
+          {
+            pizza: <PizzaForm onSubmit={handleSubmit} />,
+            soup: <SoupForm onSubmit={handleSubmit} />,
+            sandwich: <SandwichForm onSubmit={handleSubmit} />,
+          }[foodType]
+        }
+      </div>
     </div>
   );
 };

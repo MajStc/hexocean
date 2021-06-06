@@ -1,65 +1,35 @@
 import React from "react";
-import { Field, reduxForm, InjectedFormProps } from "redux-form";
-import { PizzaFormData } from "../../utils/pizzaFormTypes";
+import { reduxForm, InjectedFormProps } from "redux-form";
+import MyNumberInput from "../../components/form/MyNumberInput";
+import styles from "../../utils/styles/submit.module.scss";
+import MyTextInput from "../../components/form/MyTextInput";
 
-const PizzaForm: React.FC<InjectedFormProps<PizzaFormData>> = React.memo(
-  (props) => {
-    const { pristine, submitting, reset, handleSubmit } = props;
+const PizzaForm: React.FC<InjectedFormProps> = React.memo((props) => {
+  const { handleSubmit } = props;
 
-    return (
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Name</label>
-          <div>
-            <Field
-              name="name"
-              component="input"
-              type="text"
-              placeholder="Name"
-            />
-          </div>
-        </div>
-        <div>
-          <label>Preparation Time</label>
-          <div>
-            <Field
-              name="preparation_time"
-              component="input"
-              type="text"
-              placeholder="preparation_time"
-            />
-          </div>
-        </div>
-        <div>
-          <label>Number of Slices</label>
-          <div>
-            <Field
-              name="no_of_slices"
-              component="input"
-              type="number"
-              placeholder="no_of_slices"
-              parse={(value: any) => +value}
-            />
-          </div>
-        </div>
-        <div>
-          <label>Diameter</label>
-          <div>
-            <Field
-              name="diameter"
-              component="input"
-              type="number"
-              placeholder="diameter"
-              parse={(value: any) => +value}
-            />
-          </div>
-        </div>
-        <button type="submit">Submit</button>
-      </form>
-    );
-  }
-);
+  return (
+    <form onSubmit={handleSubmit}>
+      <MyTextInput name="name" placeholder="Name" label="Name" />
+      <MyTextInput
+        name="preparation_time"
+        placeholder="Preparation Time"
+        label="Preparation Time"
+        pattern="[\d\d:\d\d:\d\d]{8}"
+        oninvalid="HH:MM:SS"
+      />
+      <MyNumberInput
+        name="no_of_slices"
+        placeholder="Number of Slices"
+        label="Number of Slices"
+      />
+      <MyNumberInput name="diameter" placeholder="Diameter" label="Diameter" />
+      <button type="submit" className={styles.myButton}>
+        Submit
+      </button>
+    </form>
+  );
+});
 
-export default reduxForm<PizzaFormData>({
+export default reduxForm({
   form: "pizza-form",
 })(PizzaForm);
